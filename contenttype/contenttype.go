@@ -2,7 +2,7 @@ package contenttype
 
 import "strings"
 
-var mime_types = map[string]string{
+var mimeTypes = map[string]string{
 	"001":     "application/x-001",
 	"301":     "application/x-301",
 	"323":     "text/h323",
@@ -381,12 +381,9 @@ var mime_types = map[string]string{
 	"zip":     "application/zip",
 }
 
-
 func GetFileContentType(filename string) string {
-	if contentType, ok := mime_types[strings.ToLower(filename[strings.LastIndex(filename, ".")+1:])]; ok {
+	if contentType, ok := mimeTypes[strings.ToLower(filename[strings.LastIndex(filename, ".")+1:])]; ok {
 		return contentType
 	}
 	return "application/octet-stream"
 }
-
-

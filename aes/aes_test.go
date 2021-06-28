@@ -1,4 +1,4 @@
-package tools
+package aes
 
 import (
 	"encoding/base64"
@@ -13,23 +13,23 @@ func TestAes(t *testing.T) {
 	log.Println("原文：", string(origData))
 
 	log.Println("------------------ CBC模式 --------------------")
-	encrypted := AesEncryptCBC(origData, key)
+	encrypted := EncryptCBC(origData, key)
 	log.Println("密文(hex)：", hex.EncodeToString(encrypted))
 	log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-	decrypted := AesDecryptCBC(encrypted, key)
+	decrypted := DecryptCBC(encrypted, key)
 	log.Println("解密结果：", string(decrypted))
 
 	log.Println("------------------ ECB模式 --------------------")
-	encrypted = AesEncryptECB(origData, key)
+	encrypted = EncryptECB(origData, key)
 	log.Println("密文(hex)：", hex.EncodeToString(encrypted))
 	log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-	decrypted = AesDecryptECB(encrypted, key)
+	decrypted = DecryptECB(encrypted, key)
 	log.Println("解密结果：", string(decrypted))
 
 	log.Println("------------------ CFB模式 --------------------")
-	encrypted = AesEncryptCFB(origData, key)
+	encrypted = EncryptCFB(origData, key)
 	log.Println("密文(hex)：", hex.EncodeToString(encrypted))
 	log.Println("密文(base64)：", base64.StdEncoding.EncodeToString(encrypted))
-	decrypted = AesDecryptCFB(encrypted, key)
+	decrypted = DecryptCFB(encrypted, key)
 	log.Println("解密结果：", string(decrypted))
 }

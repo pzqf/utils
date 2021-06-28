@@ -1,4 +1,4 @@
-package tools
+package aes
 
 import (
 	"bytes"
@@ -10,7 +10,7 @@ import (
 )
 
 // =================== CBC ======================
-func AesEncryptCBC(origData []byte, key []byte) (encrypted []byte) {
+func EncryptCBC(origData []byte, key []byte) (encrypted []byte) {
 	// 分组秘钥
 	// NewCipher该函数限制了输入k的长度必须为16, 24或者32
 	block, err := aes.NewCipher(key)
@@ -25,7 +25,7 @@ func AesEncryptCBC(origData []byte, key []byte) (encrypted []byte) {
 	blockMode.CryptBlocks(encrypted, origData)                  // 加密
 	return encrypted
 }
-func AesDecryptCBC(encrypted []byte, key []byte) (decrypted []byte) {
+func DecryptCBC(encrypted []byte, key []byte) (decrypted []byte) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		fmt.Println("key size error:", err.Error())
@@ -51,7 +51,7 @@ func pkcs5UnPadding(origData []byte) []byte {
 }
 
 // =================== ECB ======================
-func AesEncryptECB(origData []byte, key []byte) (encrypted []byte) {
+func EncryptECB(origData []byte, key []byte) (encrypted []byte) {
 	block, _ := aes.NewCipher(generateKey(key))
 	length := (len(origData) + aes.BlockSize) / aes.BlockSize
 	plain := make([]byte, length*aes.BlockSize)
@@ -68,7 +68,7 @@ func AesEncryptECB(origData []byte, key []byte) (encrypted []byte) {
 
 	return encrypted
 }
-func AesDecryptECB(encrypted []byte, key []byte) (decrypted []byte) {
+func DecryptECB(encrypted []byte, key []byte) (decrypted []byte) {
 	block, _ := aes.NewCipher(generateKey(key))
 	decrypted = make([]byte, len(encrypted))
 	//
@@ -95,7 +95,7 @@ func generateKey(key []byte) (genKey []byte) {
 }
 
 // =================== CFB ======================
-func AesEncryptCFB(origData []byte, key []byte) (encrypted []byte) {
+func EncryptCFB(origData []byte, key []byte) (encrypted []byte) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		panic(err)
@@ -110,7 +110,7 @@ func AesEncryptCFB(origData []byte, key []byte) (encrypted []byte) {
 	return encrypted
 }
 
-func AesDecryptCFB(encrypted []byte, key []byte) (decrypted []byte) {
+func DecryptCFB(encrypted []byte, key []byte) (decrypted []byte) {
 	block, _ := aes.NewCipher(key)
 	if len(encrypted) < aes.BlockSize {
 		panic("cipher text too short")

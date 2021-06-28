@@ -1,4 +1,4 @@
-package tools
+package tree
 
 type Tree struct {
 	Data     interface{} `json:"data"`
